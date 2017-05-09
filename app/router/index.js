@@ -17,10 +17,8 @@ const App = StackNavigator({
     History: {
         screen: History,
         navigationOptions: ({ navigation }) => ({
-            title: 'history',
-            headerTitle: 'af',
-            headerLeft: <Text onPress={() => console.log(navigation)}>fasfas</Text>,
-            headerRight: <Text>fasfas</Text>,
+            headerTitle: 'history',
+            headerRight: <Text>about</Text>,
             headerTitleStyle: {
                 color: 'red'
             }
