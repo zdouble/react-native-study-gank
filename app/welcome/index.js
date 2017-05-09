@@ -12,7 +12,7 @@ class WelCome extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            layoutAni: new Animated.Value(0),
+            layoutAni: new Animated.Value(1),
             LogoAni: new Animated.Value(0),
             TextAni: new Animated.Value(0),
         }
@@ -22,7 +22,7 @@ class WelCome extends Component {
     hide(cb) {
         Animated.timing(this.state.layoutAni, {
             toValue: 0,
-            duration: 500,
+            duration: 1000,
             easing: Easing.linear
         }).start(() => cb && cb())
     }
@@ -30,12 +30,6 @@ class WelCome extends Component {
     show(cb) {
         let timing = Animated.timing
         Animated.parallel([
-            timing(this.state.layoutAni, {
-                toValue: 1,
-                duration: 1000,
-                easing: Easing.linear
-            }),
-
             timing(this.state.LogoAni, {
                 toValue: 1,
                 duration: 800,
@@ -93,7 +87,9 @@ class WelCome extends Component {
 
     render() {
         return (
-            <Animated.View style={[styles.container]}>
+            <Animated.View
+                style={[styles.container,{opacity:this.state.layoutAni}]}
+            >
                 {this.logo()}
                 {this.text()}
             </Animated.View>

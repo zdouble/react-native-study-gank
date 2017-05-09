@@ -33,26 +33,21 @@ class Home extends Component {
     }
 
     render() {
-        let content;
-        if (this.state.loading) {
-            content = <View></View>
-        } else {
-            content = (
-                <View style={styles.container}>
-                    <View style={styles.header}></View>
-                    <View style={styles.content}>
-                        <View style={styles.item1}></View>
-                        <TouchableOpacity
-                            activeOpacity={0.5}
-                            style={styles.goHistory}
-                            onPress={this.test}
-                        >
-                            <Text style={styles.goHistoryText}>查看往期</Text>
-                        </TouchableOpacity>
-                    </View>
+        let content = (
+            <View style={styles.container}>
+                <View style={styles.header}></View>
+                <View style={styles.content}>
+                    <View style={styles.item1}></View>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.goHistory}
+                        onPress={this.test}
+                    >
+                        <Text style={styles.goHistoryText}>查看往期</Text>
+                    </TouchableOpacity>
                 </View>
-            )
-        }
+            </View>
+        )
         return (
             <View style={{ flex: 1 }}>
                 {content}
