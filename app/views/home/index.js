@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+    StatusBar
+} from 'react-native';
 import http from '../../server'
 import WelCome from './welcome'
 
@@ -11,14 +18,7 @@ class Home extends Component {
             show: true
         }
     }
-    hide = () => {
-        this.setState({
-            show: false
-        })
-    }
-    test = () => {
 
-    }
     componentDidMount() {
         this.wel.show(() => {
             http('http://gank.io/api/day/history')
@@ -26,30 +26,70 @@ class Home extends Component {
                     this.setState({
                         dateArr: res.results
                     })
+                    return http(`http://gank.io/api/day/${res.results[0].replace(/-/g, '/')}`)
+                })
+                .then(res => {
+                    console.log(res)
+                    this.setState({ data: res.results })
                     this.wel.hide(() => this.setState({ loading: false }))
                 })
         })
 
     }
 
+    goHistory = () => {
+        console.log(this.props.navigation)
+        this.props.navigation.navigate('History')
+    }
+
     render() {
-        let content = (
-            <View style={styles.container}>
-                <View style={styles.header}></View>
-                <View style={styles.content}>
-                    <View style={styles.item1}></View>
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        style={styles.goHistory}
-                        onPress={this.test}
-                    >
-                        <Text style={styles.goHistoryText}>查看往期</Text>
-                    </TouchableOpacity>
+        let content = <View></View>
+        if (this.state.data) {
+            content = (
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Image
+                            source={{ uri: this.state.data['福利'][0].url }}
+                            style={{ flex: 1 }}
+                        />
+                        <View style={styles.headerFoot}>
+                            <Text style={styles.headerFootText}>{`via.${this.state.data['福利'][0].who}`}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.content}>
+                        <View style={styles.video}>
+                            <View style={styles.videoDesc}>
+                                <Text
+                                    style={styles.videoDescText}
+                                    numberOfLines={4}
+                                >
+                                    {this.state.data['休息视频'][0].desc}
+                                </Text>
+                            </View>
+                            <View style={styles.videoFoot}>
+                                <Text style={styles.videoFootText}>{`${this.state.dateArr[0]}via.${this.state.data['休息视频'][0].who}`}</Text>
+                                <Text style={[styles.videoFootText, { textAlign: 'right' }]}>去看视频</Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            style={styles.goHistory}
+                            onPress={this.goHistory}
+                        >
+                            <Text style={styles.goHistoryText}>查看往期</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        )
+            )
+        }
+
         return (
+
             <View style={{ flex: 1 }}>
+                <StatusBar
+                    backgroundColor='transparent'
+                    translucent
+                />
                 {content}
                 {this.state.loading ? <WelCome ref={wel => this.wel = wel} /> : null}
             </View>
@@ -64,14 +104,43 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 4,
+        position: 'relative'
     },
     content: {
         flex: 3,
     },
-    item1: {
+    headerFoot: {
+        height: 30,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        justifyContent: 'center',
+        paddingRight: 10
+    },
+    headerFootText: {
+        color: '#fff',
+        textAlign: 'right'
+    },
+    video: {
         flex: 2,
         backgroundColor: '#434243',
-        marginVertical: 10
+        marginVertical: 10,
+        padding: 10
+    },
+    videoDesc: {
+        flex: 2,
+    },
+    videoDescText: {
+        color: '#fff',
+        lineHeight: 18
+    },
+    videoFoot: {
+        flex: 1,
+        justifyContent: 'space-between'
+    },
+    videoFootText: {
+        color: '#fff'
     },
     goHistory: {
         flex: 1,
@@ -86,4 +155,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Home;
+export default Home

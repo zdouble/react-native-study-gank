@@ -18,7 +18,6 @@ class WelCome extends Component {
         }
     }
 
-
     hide(cb) {
         Animated.timing(this.state.layoutAni, {
             toValue: 0,
@@ -51,7 +50,7 @@ class WelCome extends Component {
     logo() {
         return (
             <Animated.Image
-                source={require('../images/gank_launcher.png')}
+                source={require('../../../images/gank_launcher.png')}
                 style={[styles.logo, {
                     transform: [
                         {
@@ -79,8 +78,8 @@ class WelCome extends Component {
                     }]
                 }]}
             >
-                <Text style={styles.text}>fasfas</Text>
-                <Text style={styles.text}>fasfsa</Text>
+                <Text style={styles.text}>这是一段文字</Text>
+                <Text style={styles.text}>这是一段文字</Text>
             </Animated.View>
         )
     }
@@ -88,7 +87,7 @@ class WelCome extends Component {
     render() {
         return (
             <Animated.View
-                style={[styles.container,{opacity:this.state.layoutAni}]}
+                style={[styles.container, { opacity: this.state.layoutAni }]}
             >
                 {this.logo()}
                 {this.text()}
