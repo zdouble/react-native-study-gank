@@ -67,7 +67,7 @@ class Home extends Component {
                                 </Text>
                             </View>
                             <View style={styles.videoFoot}>
-                                <Text style={styles.videoFootText}>{`${this.state.dateArr[0]}via.${this.state.data['休息视频'][0].who}`}</Text>
+                                <Text style={styles.videoFootText}>{`${this.state.dateArr[0]}  via.${this.state.data['休息视频'][0].who}`}</Text>
                                 <Text style={[styles.videoFootText, { textAlign: 'right' }]}>去看视频</Text>
                             </View>
                         </View>
