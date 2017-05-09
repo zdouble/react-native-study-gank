@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import http from '../../server'
-import WelCome from '../../welcome'
+import WelCome from './welcome'
 
 class Home extends Component {
     constructor(props) {
