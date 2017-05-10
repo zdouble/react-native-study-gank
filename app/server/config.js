@@ -7,14 +7,14 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(function (config) {
-	console.log('config',config)
+	// console.log('config',config)
 	return config;
 }, function (error) {
 	return Promise.reject(error);
 });
 
 http.interceptors.response.use(function (response) {
-	console.log('response',response)
+	// console.log('response',response)
 	return response.data;
 }, function (error) {
 	console.log('出错了')

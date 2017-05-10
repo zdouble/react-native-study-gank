@@ -5,6 +5,7 @@ import {
 } from 'react-navigation'
 import Home from '../views/home'
 import History from '../views/history'
+import NavigationHeader from '../components/navigation-header'
 
 const App = StackNavigator({
     Home: {
@@ -17,11 +18,7 @@ const App = StackNavigator({
     History: {
         screen: History,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: 'history',
-            headerRight: <Text>about</Text>,
-            headerTitleStyle: {
-                color: 'red'
-            }
+            header: <NavigationHeader />
         })
     }
 })

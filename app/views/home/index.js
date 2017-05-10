@@ -20,23 +20,17 @@ class Home extends Component {
         }
     }
 
-     componentDidMount() {
+    componentDidMount() {
         this.wel.show(async () => {
             let historyDate = (await getHistoryDate()).results
-            this.setState({ 
-                dateArr: historyDate,
-            })
-            let dayDate = (await getDayData(historyDate[0])).results
-            this.setState({ 
-                data: dayDate
-            })
-            this.wel.hide(() => this.setState({ 
-                loading: false,
-            }))
+            this.setState({ historyDate: historyDate })
+            let dayData = (await getDayData(historyDate[0])).results
+            this.setState({ data: dayData })
+            this.wel.hide(() => this.setState({ loading: false }))
             // getHistoryDate()
             //     .then(res => {
             //         this.setState({
-            //             dateArr: res.results
+            //             historyDate: res.results
             //         })
             //         return getDayData(res.results[0])
             //     })
@@ -48,7 +42,7 @@ class Home extends Component {
     }
 
     goHistory = () => {
-        this.props.navigation.navigate('History')
+        this.props.navigation.navigate('History', { historyDate: this.state.historyDate })
     }
 
     render() {
@@ -76,7 +70,7 @@ class Home extends Component {
                                 </Text>
                             </View>
                             <View style={styles.videoFoot}>
-                                <Text style={styles.videoFootText}>{`${this.state.dateArr[0]} via.${this.state.data['休息视频'][0].who}`}</Text>
+                                <Text style={styles.videoFootText}>{`${this.state.historyDate[0]} via.${this.state.data['休息视频'][0].who}`}</Text>
                                 <Text style={[styles.videoFootText, { textAlign: 'right' }]}>去看视频</Text>
                             </View>
                         </View>
