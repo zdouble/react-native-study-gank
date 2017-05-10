@@ -22,7 +22,6 @@ class History extends Component {
     }
 
     async fetchData() {
-        console.log(this.state.page)
         let dateArr = this.state.historyDate.slice((this.state.page - 1) * 20, this.state.page * 20)
         let data = await getDayData(dateArr)
 
