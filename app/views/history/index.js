@@ -22,6 +22,7 @@ class History extends Component {
     }
 
     async fetchData() {
+        console.log(this.state.page)
         let dateArr = this.state.historyDate.slice((this.state.page - 1) * 20, this.state.page * 20)
         let data = await getDayData(dateArr)
 
@@ -67,18 +68,22 @@ class History extends Component {
 
     _onEndReached() {
         this.setState({
-            page: this.state.page++,
+            page: this.state.page + 1,
             moreLoading: true
+        }, () => {
+            this.fetchData()
         })
-        this.fetchData()
+
     }
 
     _onRefresh() {
         this.setState({
             page: 1,
             refreshing: true
+        }, () => {
+            this.fetchData()
         })
-        this.fetchData()
+
     }
 
     componentDidMount() {
