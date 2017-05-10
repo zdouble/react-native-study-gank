@@ -1,35 +1,24 @@
-const config = {
-    timeout: 10000,
+import axios from './config.js'
+
+function getHistoryDate () {
+    return axios(`/day/history`)
 }
 
-function timeout(timeout = config.timeout) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            reject(new Error('请求超时'))
-        }, timeout)
-    })
+function getDayData (date) {
+    if(typeof date == 'string'){
+        return axios(`/day/${dateReplace(date)}`)
+    }else {
+        return Promise.All(date.map(date => axios(`/day${dateReplace(date)}`)))
+    }
+
+    function dateReplace (date) {
+        return date.replace(/-/g,'/')
+    }
 }
 
-function test() {
-    return new Promise((resolve, reject) => {
-        resolve({a:false})
-    })
+export default axios
+
+export {
+    getHistoryDate,
+    getDayData
 }
-
-
-function http(url) {
-    return Promise.race([fetch(url), timeout()])
-        .then(res => {
-            return res.json()
-            // if (res.a) {
-            //     return res
-            // }else {
-            //     console.log('错错')
-            // }
-        })
-        .catch(error => {
-            console.log(error)
-        })
-}
-
-export default http;
