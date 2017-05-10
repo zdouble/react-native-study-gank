@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import http from '../../server'
 import WelCome from './welcome'
+import { getHistoryDate, getDayData } from '../../server'
 
 class Home extends Component {
     constructor(props) {
@@ -20,26 +21,28 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.wel.show(() => {
-            http('http://gank.io/api/day/history')
-                .then(res => {
-                    this.setState({
-                        dateArr: res.results
-                    })
-                    return http(`http://gank.io/api/day/${res.results[0].replace(/-/g, '/')}`)
-                })
-                .then(res => {
-                    console.log(res)
-                    this.setState({ data: res.results })
-                    this.wel.hide(() => this.setState({ loading: false }))
-                })
+        this.wel.show(async () => {
+            let historyDate = (await getHistoryDate()).results
+            this.setState({ historyDate: historyDate })
+            let dayData = (await getDayData(historyDate[0])).results
+            this.setState({ data: dayData })
+            this.wel.hide(() => this.setState({ loading: false }))
+            // getHistoryDate()
+            //     .then(res => {
+            //         this.setState({
+            //             historyDate: res.results
+            //         })
+            //         return getDayData(res.results[0])
+            //     })
+            //     .then(res => {
+            //         this.setState({ data: res.results })
+            //         this.wel.hide(() => this.setState({ loading: false }))
+            //     })
         })
-
     }
 
     goHistory = () => {
-        console.log(this.props.navigation)
-        this.props.navigation.navigate('History')
+        this.props.navigation.navigate('History', { historyDate: this.state.historyDate })
     }
 
     render() {
@@ -67,7 +70,7 @@ class Home extends Component {
                                 </Text>
                             </View>
                             <View style={styles.videoFoot}>
-                                <Text style={styles.videoFootText}>{`${this.state.dateArr[0]}  via.${this.state.data['休息视频'][0].who}`}</Text>
+                                <Text style={styles.videoFootText}>{`${this.state.historyDate[0]} via.${this.state.data['休息视频'][0].who}`}</Text>
                                 <Text style={[styles.videoFootText, { textAlign: 'right' }]}>去看视频</Text>
                             </View>
                         </View>
