@@ -5,12 +5,13 @@ import {
 } from 'react-navigation'
 import Home from '../views/home'
 import History from '../views/history'
+import Detail from '../views/detail'
 import NavigationHeader from '../components/navigation-header'
+
 
 const App = StackNavigator({
     Home: {
         screen: Home,
-        mode: null,
         navigationOptions: {
             header: null,
         }
@@ -18,9 +19,26 @@ const App = StackNavigator({
     History: {
         screen: History,
         navigationOptions: ({ navigation }) => ({
-            header: <NavigationHeader />
+            header: <NavigationHeader
+                title="history"
+                navigation={navigation}
+                rightText='about'
+            />
+        })
+    },
+    Detail: {
+        screen: History,
+        navigationOptions: ({ navigation }) => ({
+            header: <NavigationHeader
+                title="详情页"
+                navigation={navigation}
+            />
         })
     }
-})
+}, {
+        navigationOptions: {
+            gesturesEnabled: true
+        }
+    })
 
 export default App

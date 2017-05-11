@@ -4,7 +4,8 @@ import {
     Text,
     FlatList,
     Image,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native'
 
 import { getDayData } from '../../server'
@@ -67,7 +68,7 @@ class History extends Component {
 
     _onEndReached() {
         this.setState({
-            page: this.state.page + 1,
+            page: ++this.state.page,
             moreLoading: true
         }, () => {
             this.fetchData()

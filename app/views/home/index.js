@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
     },
     videoDescText: {
         color: '#fff',
-        lineHeight: 18
+        lineHeight: 20,
+        fontSize: 18
     },
     videoFoot: {
         flex: 1,
