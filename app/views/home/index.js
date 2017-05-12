@@ -91,6 +91,7 @@ class Home extends Component {
             <View style={{ flex: 1 }}>
                 <StatusBar
                     backgroundColor='transparent'
+                    animated
                     translucent
                 />
                 {content}

@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'rgba(255,255,255,0.5)'
+        backgroundColor: '#fff'
     },
     baseText: {
         color: '#000',

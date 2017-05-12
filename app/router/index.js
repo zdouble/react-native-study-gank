@@ -27,7 +27,7 @@ const App = StackNavigator({
         })
     },
     Detail: {
-        screen: History,
+        screen: Detail,
         navigationOptions: ({ navigation }) => ({
             header: <NavigationHeader
                 title="详情页"

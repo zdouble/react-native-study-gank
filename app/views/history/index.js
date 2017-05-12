@@ -5,7 +5,8 @@ import {
     FlatList,
     Image,
     StyleSheet,
-    TouchableOpacity
+    TouchableHighlight,
+    StatusBar
 } from 'react-native'
 
 import { getDayData } from '../../server'
@@ -52,17 +53,19 @@ class History extends Component {
         let { index, item: { value: { results } } } = data
         let title = results['休息视频'] ? results['休息视频'][0].desc : 'gank.io'
         return (
-            <View>
-                <View style={styles.listTextWrap}>
-                    <Text style={styles.listText}>{this.state.historyDate[index]}</Text>
-                    <Text style={styles.listText}>{title}</Text>
-                </View>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('Detail', { data: results })}>
+                <View>
+                    <View style={styles.listTextWrap}>
+                        <Text style={styles.listText}>{this.state.historyDate[index]}</Text>
+                        <Text style={styles.listText}>{title}</Text>
+                    </View>
 
-                <Image
-                    source={{ uri: results['福利'][0].url }}
-                    style={{ width: null, height: 260, }}
-                />
-            </View>
+                    <Image
+                        source={{ uri: results['福利'][0].url }}
+                        style={{ width: null, height: 260, }}
+                    />
+                </View>
+            </TouchableHighlight>
         )
     }
 
@@ -73,7 +76,6 @@ class History extends Component {
         }, () => {
             this.fetchData()
         })
-
     }
 
     _onRefresh() {
@@ -93,6 +95,12 @@ class History extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar
+                    backgroundColor='transparent'
+                    barStyle='dark-content'
+                    animated
+                    translucent
+                />
                 {
                     this.state.data.length ?
                         <FlatList
