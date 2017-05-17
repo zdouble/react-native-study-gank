@@ -7,6 +7,7 @@ import Home from '../views/home'
 import History from '../views/history'
 import Detail from '../views/detail'
 import NavigationHeader from '../components/navigation-header'
+import WebViewPage from '../views/webview'
 
 
 const App = StackNavigator({
@@ -31,6 +32,15 @@ const App = StackNavigator({
         navigationOptions: ({ navigation }) => ({
             header: <NavigationHeader
                 title="详情页"
+                navigation={navigation}
+            />
+        })
+    },
+    WebViewPage: {
+        screen: WebViewPage,
+        navigationOptions: ({ navigation }) => ({
+            header: <NavigationHeader
+                title={navigation.state.params.title}
                 navigation={navigation}
             />
         })

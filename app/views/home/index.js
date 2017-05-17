@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    TouchableHighlight,
     Image,
     StatusBar
 } from 'react-native';
@@ -60,20 +61,29 @@ class Home extends Component {
                         </View>
                     </View>
                     <View style={styles.content}>
-                        <View style={styles.video}>
-                            <View style={styles.videoDesc}>
-                                <Text
-                                    style={styles.videoDescText}
-                                    numberOfLines={4}
-                                >
-                                    {this.state.data['休息视频'][0].desc}
-                                </Text>
+                        <TouchableHighlight
+                            style={styles.video}
+                            underlayColor='transparent'
+                            onPress={() => this.props.navigation.navigate('WebViewPage',{
+                                title: this.state.data['休息视频'][0].desc,
+                                url: this.state.data['休息视频'][0].url
+                            })}
+                        >
+                            <View style={{ flex: 1 }}>
+                                <View style={styles.videoDesc}>
+                                    <Text
+                                        style={styles.videoDescText}
+                                        numberOfLines={4}
+                                    >
+                                        {this.state.data['休息视频'][0].desc}
+                                    </Text>
+                                </View>
+                                <View style={styles.videoFoot}>
+                                    <Text style={styles.videoFootText}>{`${this.state.historyDate[0]} via.${this.state.data['休息视频'][0].who}`}</Text>
+                                    <Text style={[styles.videoFootText, { textAlign: 'right' }]}>去看视频</Text>
+                                </View>
                             </View>
-                            <View style={styles.videoFoot}>
-                                <Text style={styles.videoFootText}>{`${this.state.historyDate[0]} via.${this.state.data['休息视频'][0].who}`}</Text>
-                                <Text style={[styles.videoFootText, { textAlign: 'right' }]}>去看视频</Text>
-                            </View>
-                        </View>
+                        </TouchableHighlight>
                         <TouchableOpacity
                             activeOpacity={0.5}
                             style={styles.goHistory}
