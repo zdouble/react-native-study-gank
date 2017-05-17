@@ -19,7 +19,7 @@ class NavigationHeader extends Component {
         },
         rightText: '',
         rightPress() {
-            this.navigation.goBack()
+
         }
     }
 
@@ -38,7 +38,7 @@ class NavigationHeader extends Component {
             <TouchableOpacity style={[styles.leftRightBase, styles.right]} onPress={() => this.props.rightPress()}>
                 <Text style={styles.baseText}>{this.props.rightText}</Text>
             </TouchableOpacity>
-            
+
         return content
     }
 
