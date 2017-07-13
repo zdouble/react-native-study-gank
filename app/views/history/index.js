@@ -9,6 +9,7 @@ import {
     StatusBar
 } from 'react-native'
 
+import Loading from '../../components/loading'
 import { getDayData } from '../../server'
 
 class History extends Component {
@@ -92,6 +93,20 @@ class History extends Component {
         this.fetchData()
     }
 
+    renderContent() {
+        if (!this.state.data.length) {
+            return <Loading size="large" textStyle={{color: '#fff'}} />
+        } else {
+            return <FlatList
+                data={this.state.data}
+                renderItem={(item) => this._renderItem(item)}
+                onEndReached={() => this._onEndReached()}
+                onRefresh={() => this._onRefresh()}
+                refreshing={this.state.refreshing}
+            />
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -101,18 +116,9 @@ class History extends Component {
                     animated
                     translucent
                 />
+                {this.renderContent()}
                 {
-                    this.state.data.length ?
-                        <FlatList
-                            data={this.state.data}
-                            renderItem={(item) => this._renderItem(item)}
-                            onEndReached={() => this._onEndReached()}
-                            onRefresh={() => this._onRefresh()}
-                            refreshing={this.state.refreshing}
-                        /> : null
-                }
-                {
-                    this.state.moreLoading ? <Text style={{ textAlign: 'center' }}>正在加载</Text> : null
+                    this.state.moreLoading && <Text style={{ textAlign: 'center' }}>正在加载</Text>
                 }
             </View>
         )

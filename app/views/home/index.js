@@ -105,7 +105,7 @@ class Home extends Component {
                     translucent
                 />
                 {content}
-                {this.state.loading ? <WelCome ref={wel => this.wel = wel} /> : null}
+                {this.state.loading && <WelCome ref={wel => this.wel = wel} />}
             </View>
         );
     }
